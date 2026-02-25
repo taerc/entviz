@@ -1,4 +1,4 @@
-module github.com/hedwigz/entviz
+module github.com/taerc/entviz
 
 go 1.24.0
 

@@ -3,7 +3,7 @@ package main
 import (
 	"net/http"
 
-	"github.com/hedwigz/entviz/examples/ent"
+	"github.com/taerc/entviz/examples/ent"
 )
 
 func main() {

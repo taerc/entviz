@@ -5,7 +5,7 @@ import (
 	"os"
 
 	"entgo.io/ent/entc/gen"
-	"github.com/hedwigz/entviz"
+	"github.com/taerc/entviz"
 )
 
 func main() {

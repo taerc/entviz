@@ -53,9 +53,9 @@
       const tblBody = document.createElement("tbody");
       for (const field of fields) {
         const row = document.createElement("tr");
-        for (const key of ["name", "type"]) {
+        for (const key of ["name", "type", "comment"]) {
           const cell = document.createElement("td");
-          const cellText = document.createTextNode(field[key]);
+          const cellText = document.createTextNode(field[key] || "");
           if (key === "type") {
             cell.setAttribute("class", "var-type")
           }

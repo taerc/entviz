@@ -16,15 +16,20 @@ type User struct {
 // Fields of the User.
 func (User) Fields() []ent.Field {
 	return []ent.Field{
-		field.String("name"),
-		field.String("email"),
-		field.Int8("role"),
+		field.String("name").
+			Comment("用户姓名"),
+		field.String("email").
+			Comment("用户邮箱地址"),
+		field.Int8("role").
+			Comment("用户角色"),
 		field.Time("created").
-			Default(time.Now),
+			Default(time.Now).
+			Comment("创建时间"),
 		field.Int("age").
 			Range(0, 1000).
 			Optional().
-			Nillable(),
+			Nillable().
+			Comment("用户年龄"),
 	}
 }
 

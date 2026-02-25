@@ -2,6 +2,7 @@ package entviz
 
 import (
 	"encoding/json"
+	"strings"
 	"testing"
 )
 
@@ -48,5 +49,20 @@ func TestJsFieldEmptyComment(t *testing.T) {
 	expected := `{"name":"test_field","type":"string","comment":""}`
 	if string(data) != expected {
 		t.Errorf("Expected %s, got %s", expected, string(data))
+	}
+}
+
+func TestTemplatePlaceholders(t *testing.T) {
+	if !strings.Contains(tmplhtml, "{{.FiraCodeCSS}}") {
+		t.Error("Template should contain FiraCodeCSS placeholder")
+	}
+	if !strings.Contains(tmplhtml, "{{.VisNetworkJS}}") {
+		t.Error("Template should contain VisNetworkJS placeholder")
+	}
+	if !strings.Contains(tmplhtml, "{{.RandomColorJS}}") {
+		t.Error("Template should contain RandomColorJS placeholder")
+	}
+	if !strings.Contains(tmplhtml, "{{.GraphJSON}}") {
+		t.Error("Template should contain GraphJSON placeholder")
 	}
 }

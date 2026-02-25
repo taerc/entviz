@@ -2,9 +2,15 @@
 
 <head>
   <title>ent schema network</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/tonsky/FiraCode@5.2/distr/fira_code.css">
-  <script src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/randomcolor/0.6.1/randomColor.min.js" integrity="sha512-vPeZ7JCboHcfpqSx5ZD+/jpEhS4JpXxfz9orSvAPPj0EKUVShU2tgy7XkU+oujBJKnWmu4hU7r9MMQNWPfXsYw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <style>
+  {{.FiraCodeCSS}}
+  </style>
+  <script type="text/javascript">
+  {{.RandomColorJS}}
+  </script>
+  <script type="text/javascript">
+  {{.VisNetworkJS}}
+  </script>
   <style type="text/css">
     html * {
       font-family: 'Fira Code', monospace !important;
@@ -70,7 +76,7 @@
     }
 
     // get the graph representation from go (template)
-    const entGraph = JSON.parse({{.}});
+    const entGraph = {{.GraphJSON}};
     const nodes = new vis.DataSet((entGraph.nodes || []).map(n =>
     ({
       id: n.id,

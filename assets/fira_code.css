@@ -1,0 +1,4 @@
+/* Fira Code-like styles using system monospace fonts for offline use */
+html * {
+  font-family: 'Consolas', 'Monaco', 'Courier New', monospace !important;
+}

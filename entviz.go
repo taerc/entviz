@@ -18,9 +18,11 @@ package entviz
 
 import (
 	"bytes"
+	"embed"
 	_ "embed"
 	"encoding/json"
 	"html/template"
+	"io/fs"
 	"os"
 	"path/filepath"
 
@@ -103,8 +105,17 @@ var (
 	tmplhtml string
 	//go:embed entviz.go.tmpl
 	tmplfile string
+	//go:embed assets
+	assets embed.FS
 	viztmpl  = template.Must(template.New("viz").Parse(tmplhtml))
 )
+
+type templateData struct {
+	FiraCodeCSS    template.CSS
+	VisNetworkJS   template.JS
+	RandomColorJS  template.JS
+	GraphJSON      template.JS
+}
 
 // generateHTML 生成包含 schema 可视化的完整 HTML 页面。
 // 该函数执行以下步骤：
@@ -119,13 +130,34 @@ var (
 //   - []byte: 生成的 HTML 页面字节数组
 //   - error: 如果生成过程中发生错误则返回错误
 func generateHTML(g *gen.Graph) ([]byte, error) {
-	graph := toJsGraph(g)
-	buf, err := json.Marshal(&graph)
+	firaCodeCSS, err := fs.ReadFile(assets, "assets/fira_code.css")
 	if err != nil {
 		return nil, err
 	}
+	visNetworkJS, err := fs.ReadFile(assets, "assets/vis-network.min.js")
+	if err != nil {
+		return nil, err
+	}
+	randomColorJS, err := fs.ReadFile(assets, "assets/randomcolor.min.js")
+	if err != nil {
+		return nil, err
+	}
+
+	graph := toJsGraph(g)
+	graphJSON, err := json.Marshal(&graph)
+	if err != nil {
+		return nil, err
+	}
+
+	data := templateData{
+		FiraCodeCSS:   template.CSS(firaCodeCSS),
+		VisNetworkJS:  template.JS(visNetworkJS),
+		RandomColorJS: template.JS(randomColorJS),
+		GraphJSON:     template.JS(graphJSON),
+	}
+
 	var b bytes.Buffer
-	if err := viztmpl.Execute(&b, string(buf)); err != nil {
+	if err := viztmpl.Execute(&b, data); err != nil {
 		return nil, err
 	}
 	return b.Bytes(), nil

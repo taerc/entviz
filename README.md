@@ -2,7 +2,7 @@
 entviz is an ent extension that creates visual graph (html file) of your ent's schema.  
 # install
 ```
-go get github.com/hedwigz/entviz
+go get github.com/taerc/entviz
 ```
 add this extension to ent (see [example](examples/ent/entc.go) code)
 run
@@ -18,7 +18,7 @@ http.ListenAndServe("localhost:3002", ent.ServeEntviz())
 # Use from command line
 Install the cmd
 ```
-go get github.com/hedwigz/entviz/cmd/entviz
+go install github.com/taerc/entviz/cmd/entviz
 ```
 Then run inside your project:
 ```
